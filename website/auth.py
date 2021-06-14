@@ -21,8 +21,8 @@ def login():
             if check_password_hash(user.password, password):
                 login_user(user, remember=True)
                 flash(
-                    f"Logged In Successfully as {user.email}!", category="success")
-                return redirect(url_for("views.home"))
+                    f"Hello {user.username} !", category="success")
+                return redirect(url_for("dashboard.manager"))
 
     return render_template("login.html", settings=settings, user=current_user)
 
@@ -59,7 +59,7 @@ def register():
                 category="success"
             )
 
-            return redirect(url_for("views.home"))
+            return redirect(url_for("dashboard.manager"))
 
     return render_template("register.html", settings=settings, user=current_user)
 
@@ -68,4 +68,4 @@ def register():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("views.home"))
+    return redirect(url_for("dashboard.manager"))

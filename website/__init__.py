@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, redirect, url_for, flash
 import os
+from flask.helpers import url_for
 from flask_sqlalchemy import SQLAlchemy
 import json
 from flask_login import LoginManager
@@ -23,15 +24,21 @@ def create_app():
 
     from .views import views
     from .auth import auth
+    from .dashboard import dashboard
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(dashboard, url_prefix="/")
 
     from .models import User, Password
     create_db(app=app)
 
     login_manager = LoginManager()
-    login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
+
+    @login_manager.unauthorized_handler
+    def to_login():
+        flash("Login To Access Dashboard", category="success")
+        return redirect(url_for("auth.login"))
 
     @login_manager.user_loader
     def load_user(id):
