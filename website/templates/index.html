@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="text-gray-600 body-font relative">
+    <div class="container px-5 py-24 mx-auto">
+
+        <div class="flex flex-col text-center w-full mb-12">
+            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Save Password</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">You can save passwords using the form below</p>
+        </div>
+
+        <div class="lg:w-1/2 md:w-2/3 mx-auto">
+
+            <div class="flex flex-wrap -m-2">
+
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="url" class="leading-7 text-sm text-gray-600">Website URL</label>
+                        <input type="text" id="url" name="url"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+
+                <div class="p-2 w-1/2">
+                    <div class="relative">
+                        <label for="username" class="leading-7 text-sm text-gray-600">Username</label>
+                        <input type="text" id="username" name="username"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+
+                <div class="p-2 w-1/2">
+                    <div class="relative">
+                        <label for="email" class="leading-7 text-sm text-gray-600">Email (Optional)</label>
+                        <input type="email" id="email" name="email"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+
+                <div class="p-2 w-full">
+                    <div class="relative">
+                        <label for="password" class="leading-7 text-sm text-gray-600">Password</label>
+                        <input type="text" id="password" name="password"
+                            class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                    </div>
+                </div>
+
+
+                <div class="p-2 w-full">
+                    <a href="">
+                        <button
+                            class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<hr>
+
+<section class="text-gray-600 body-font">
+    <div class="container px-5 py-24 mx-auto">
+        <div class="flex flex-col text-center w-full mb-20">
+            <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">View Passwords</h1>
+            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">You Can View All Your Passwords From The Form Below
+            </p>
+        </div>
+        <div class="lg:w-2/3 w-full mx-auto overflow-auto">
+            <table class="table-auto w-full text-left whitespace-no-wrap">
+                <thead>
+                    <tr>
+                        <th
+                            class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
+                            Website URL</th>
+                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                            Username</th>
+                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                            Email</th>
+                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                            Password</th>
+                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                            Edit</th>
+                        <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                            Delete</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td class="px-4 py-3">www.google.com</td>
+                        <td class="px-4 py-3">TheXurde</td>
+                        <td class="px-4 py-3">thexurde123@gmail.com</td>
+                        <td class="px-4 py-3 text-lg text-gray-900">1234</td>
+
+                        <td class="w-10 text-center">
+                            <a href="">
+                                <button
+                                    class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Edit
+                                </button>
+                            </a>
+                        </td>
+
+                        <td class="w-10 text-center">
+                            <a href="">
+                                <button
+                                    class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Delete
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+
+
+{% endblock content %}
