@@ -7,15 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ settings.title }}</title>
 
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
 
 <body>
 
-
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
+            <a href="" class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round"
                     stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full"
                     viewBox="0 0 24 24">
@@ -23,26 +22,68 @@
                 </svg>
                 <span class="ml-3 text-xl">{{ settings.title }}</span>
             </a>
+
             <nav
-                class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-                <a class="mr-5 hover:text-gray-900">Save Password</a>
-                <a class="mr-5 hover:text-gray-900">View Passwords</a>
+                class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400 flex flex-wrap items-center text-base justify-center">
+
+                {% if user.is_authenticated %}
+
+                <a href="/" class="mr-5 hover:text-gray-900">Home</a>
+                {% block more_links %}{% endblock more_links %}
+
+                {% else %}
+                <a href="/login" class="mr-5 hover:text-gray-900">Login</a>
+                <a href="/register" class="mr-5 hover:text-gray-900">Register</a>
+
+                {% endif %}
             </nav>
 
-            <a href="">
+            {% if user.is_authenticated %}
+            <a href="/logout">
                 <button
                     class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Logout
-                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                        stroke-width="2" class="w-4 h-4 ml-1" viewBox="0 0 24 24">
                         <path d="M5 12h14M12 5l7 7-7 7"></path>
                     </svg>
                 </button>
             </a>
+            {% endif %}
+
         </div>
     </header>
 
     <hr>
- 
+
+    {% with messages = get_flashed_messages(with_categories = true) %}
+    {% if messages %}
+    {% for category,message in messages %}
+
+    {% if category == "error" %}
+
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" id="alert">
+        <strong class="font-bold">Error!</strong>
+        <span class="block sm:inline">{{ message }}</span>
+        <button type="button" onclick="message()">
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">&times;</span>
+        </button>
+    </div>
+
+    {% elif category == "success" %}
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" id="alert">
+        <strong class="font-bold">Success!</strong>
+        <span class="block sm:inline">{{ message }}</span>
+        <button type="button" onclick="message()">
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     {% block content %}{% endblock content %}
 
     <hr>
@@ -55,12 +96,10 @@
                     viewBox="0 0 24 24">
                     <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                 </svg>
-                <span class="ml-3 text-xl">Tailblocks</span>
+                <span class="ml-3 text-xl">{{settings.title}}</span>
             </a>
             <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0 mt-4">©
-                2020 Tailblocks —
-                <a href="https://twitter.com/knyttneve" class="text-gray-600 ml-1" rel="noopener noreferrer"
-                    target="_blank">@knyttneve</a>
+                2021 {{settings.developer}}
             </p>
             <span class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
                 <a class="text-gray-500">
@@ -97,6 +136,7 @@
         </div>
     </footer>
 
+    <script src="/static/js/script.js"></script>
 
 </body>
 

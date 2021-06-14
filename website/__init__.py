@@ -2,6 +2,7 @@ from flask import Flask
 import os
 from flask_sqlalchemy import SQLAlchemy
 import json
+from flask_login import LoginManager
 
 db_name = "database.db"
 db = SQLAlchemy()
@@ -25,13 +26,21 @@ def create_app():
     app.register_blueprint(views, url_prefix="/")
     app.register_blueprint(auth, url_prefix="/")
 
-    from . import models
+    from .models import User, Password
     create_db(app=app)
+
+    login_manager = LoginManager()
+    login_manager.login_view = 'auth.login'
+    login_manager.init_app(app)
+
+    @login_manager.user_loader
+    def load_user(id):
+        return User.query.get(id)
 
     return app
 
 
 def create_db(app):
-    if not os.path.exists(os.path.join("website", "db", db_name)):
+    if not os.path.exists(os.path.join("website", db_name)):
         db.create_all(app=app)
         print("DB Created Successfully")
