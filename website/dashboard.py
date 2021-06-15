@@ -24,8 +24,12 @@ def manager():
             db.session.add(entry)
             db.session.commit()
 
+            flash("Saved password", category="success")
+            return redirect(url_for("dashboard.manager"))
+
         except:
             flash("Could'nt save password", category="error")
+            return redirect(url_for("dashboard.manager"))
 
     data = Password.query.order_by(Password.id).all()
     return render_template("dashboard.html", settings=settings, user=current_user, data=data)
@@ -49,7 +53,7 @@ def edit(id):
                 password=password
             ))
             db.session.commit()
-            flash("Password Updated", category="success")
+            flash("Password updated", category="success")
             return redirect(url_for("dashboard.manager"))
 
         except:
@@ -65,7 +69,7 @@ def delete(id):
         password = Password.query.filter_by(id=id).first()
         db.session.delete(password)
         db.session.commit()
-        flash("Deleted Password", category="success")
+        flash("Password deleted", category="success")
         return redirect(url_for("dashboard.manager"))
 
     except:
