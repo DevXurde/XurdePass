@@ -1,5 +1,6 @@
 from . import db
 from flask_login import UserMixin
+from datetime import datetime
 
 
 class Password(db.Model):
@@ -19,5 +20,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String, unique=True)
     username = db.Column(db.String)
     password = db.Column(db.String)
+    date = db.Column(db.DateTime, default=datetime.utcnow())
 
     passwords = db.relationship("Password")

@@ -14,15 +14,30 @@ def login():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
+        remember_me = str(request.form.get("remember_me"))
+
+        print(remember_me)
 
         user = User.query.filter_by(email=email).first()
 
         if user:
             if check_password_hash(user.password, password):
-                login_user(user, remember=True)
+                if remember_me == "on":
+                    login_user(user, remember=True)
+                else:
+                    login_user(user, remember=False)
+
                 flash(
                     f"Hello {user.username} !", category="success")
                 return redirect(url_for("dashboard.manager"))
+
+            else:
+                flash(f"Incorrect password for {user.email}", category="error")
+                return redirect(url_for("auth.login"))
+
+        else:
+            flash(f"Email does not exists", category="error")
+            return redirect(url_for("auth.login"))
 
     return render_template("login.html", settings=settings, user=current_user)
 
@@ -52,6 +67,7 @@ def register():
             db.session.add(entry)
             db.session.commit()
 
+            user = User.query.filter_by(email=email).first()
             login_user(user, remember=True)
 
             flash(

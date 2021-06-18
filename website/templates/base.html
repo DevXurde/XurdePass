@@ -37,7 +37,7 @@
 
                 <a href="/" class="mr-5 hover:text-gray-900">Home</a>
                 <a href="/dashboard" class="mr-5 hover:text-gray-900">Dashboard</a>
-                <a href="/account/{{user.email}}" class="mr-5 hover:text-gray-900">Account</a>
+                <a href="/account" class="mr-5 hover:text-gray-900">Account</a>
                 {% block more_links %}{% endblock more_links %}
 
                 {% else %}
@@ -83,7 +83,6 @@
     {% if category == "error" %}
 
     <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" id="alert">
-        <strong class="font-bold">Error!</strong>
         <span class="block sm:inline">{{ message }}</span>
         <button type="button" onclick="message()">
             <span class="absolute top-0 bottom-0 right-0 px-4 py-3">&times;</span>
