@@ -12,11 +12,11 @@ Take a look at some features of XurdePass
 ## How to use?
 First you need to clone the repository
 ```bash
-git clone https://github.com/DevXurde/flask-password-manager.git
+git clone https://github.com/DevXurde/XurdePass.git
 ```
 Change directory
 ```bash
-cd flask-password-manager
+cd XurdePass
 ```
 Install requirement
 ```bash
