@@ -31,8 +31,7 @@ def manager():
             flash("Could'nt save password", category="error")
             return redirect(url_for("dashboard.manager"))
 
-    data = Password.query.order_by(Password.id).all()
-    return render_template("dashboard.html", settings=settings, user=current_user, data=data)
+    return render_template("dashboard.html", settings=settings, user=current_user)
 
 
 @dashboard.route("/edit/<int:id>", methods=["GET", "POST"])
@@ -45,33 +44,43 @@ def edit(id):
         email = request.form.get("email")
         password = request.form.get("password")
 
-        try:
-            data.update(dict(
-                url=url,
-                username=username,
-                email=email,
-                password=password
-            ))
-            db.session.commit()
-            flash("Password updated", category="success")
-            return redirect(url_for("dashboard.manager"))
+        if data.first().user_id == current_user.id:
 
-        except:
-            flash("Could'nt update password", category="error")
-            return redirect(url_for("dashboard.manager"))
+            try:
+                data.update(dict(
+                    url=url,
+                    username=username,
+                    email=email,
+                    password=password
+                ))
+                db.session.commit()
+                flash("Password updated", category="success")
+                return redirect(url_for("dashboard.manager"))
+
+            except:
+                flash("Could'nt update password", category="error")
+                return redirect(url_for("dashboard.manager"))
+        else:
+            return redirect(url_for("views.home"))
 
     return render_template("edit.html", settings=settings, user=current_user, data=data.first())
 
 
 @dashboard.route("/delete/<int:id>", methods=["GET", "POST"])
 def delete(id):
-    try:
-        password = Password.query.filter_by(id=id).first()
-        db.session.delete(password)
-        db.session.commit()
-        flash("Password deleted", category="success")
-        return redirect(url_for("dashboard.manager"))
+    password = Password.query.filter_by(id=id).first()
 
-    except:
-        flash("Could'nt delete password", category="error")
-        return redirect(url_for("dashboard.manager"))
+    if password.user_id == current_user.id:
+
+        try:
+            db.session.delete(password)
+            db.session.commit()
+            flash("Password deleted", category="success")
+            return redirect(url_for("dashboard.manager"))
+
+        except:
+            flash("Could'nt delete password", category="error")
+            return redirect(url_for("dashboard.manager"))
+
+    else:
+        return redirect("views.home")

@@ -75,7 +75,7 @@
 
 <hr>
 
-{% if data|length == 0 %}
+{% if user.passwords|length == 0 %}
 
 <section id="view" class="text-gray-600 body-font">
     <div class="container px-5 py-24 mx-auto">
@@ -124,7 +124,7 @@
 
                 <tbody>
 
-                    {% for password in data %}
+                    {% for password in user.passwords %}
 
                     <tr>
                         <td class="px-4 py-3">{{password.url}}</td>
