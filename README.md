@@ -12,7 +12,7 @@ Take a look at some features of XurdePass
 ## How to use?
 First you need to clone the repository
 ```bash
-git clone https://github.com/DevXurde/XurdePass.git
+git clone https://github.com/ZayedMalick/XurdePass.git
 ```
 Change directory
 ```bash
